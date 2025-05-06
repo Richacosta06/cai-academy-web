@@ -55,7 +55,7 @@ p {
 
   .cancha-fondo > * {
     position: relative;
-    z-index: 10;
+    //z-index: 10;
   }
 }
 
