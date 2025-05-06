@@ -1,0 +1,60 @@
+---
+const entrenadores = [
+  {
+    nombre: "Nombre Entrenador 1",
+    foto: "/entrenadores/entrenador2.jpg",
+    cargo: "Director Técnico / Licencia PRO",
+    descripcion:
+      "Con más de [X] años de experiencia en formación de juveniles y fútbol profesional. Especializado en [Área de especialización].",
+  },
+  {
+    nombre: "Nombre Entrenador 2",
+    foto: "/entrenadores/entrenador1.jpg",
+    cargo: "Entrenador Categoría Juvenil / Licencia A",
+    descripcion:
+      "Experiencia en [Clubes o academias anteriores]. Enfocado en el desarrollo técnico y táctico individual.",
+  },
+  {
+    nombre: "Nombre Entrenador 3",
+    foto: "/entrenadores/entrenador3.jpg",
+    cargo: "Entrenador Categoría Juvenil / Licencia A",
+    descripcion:
+      "Experiencia en [Clubes o academias anteriores]. Enfocado en el desarrollo técnico y táctico individual.",
+  },
+];
+---
+
+<section id="Entrenadores" class="page-content">
+  <div class="container mx-auto px-6 py-16">
+    <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">
+      Nuestro Equipo Técnico
+      <div class="w-24 h-1 bg-cai-gold mx-auto mt-4"></div>
+    </h2>
+    <p class="text-xl text-center mb-12 max-w-2xl mx-auto">
+      Contamos con un cuerpo técnico altamente calificado y apasionado por la
+      enseñanza del fútbol.
+    </p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+      {
+        entrenadores.map((entrenador) => (
+          <div
+            class="info-card text-center professor-card"
+            style="min-height: 370px;"
+          >
+            <img
+              src={entrenador.foto}
+              alt={`Foto de ${entrenador.nombre}`}
+              class="w-32 h-32 mx-auto mb-4 rounded-full border-2 border-cai-gold object-cover"
+              onerror="this.onerror=null; this.src='https://placehold.co/150x150/cccccc/ffffff?text=Foto';"
+            />
+            <h3 class="text-xl font-semibold mb-1 text-white">
+              {entrenador.nombre}
+            </h3>
+            <p class="text-sm text-cai-gold mb-3">{entrenador.cargo}</p>
+            <p class="text-sm leading-relaxed">"{entrenador.descripcion}"</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

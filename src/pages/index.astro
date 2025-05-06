@@ -1,13 +1,73 @@
 ---
+import Elegir from "../components/Elegir.astro";
 import Header from "../components/Header.astro";
 import Hero from "../components/Hero.astro";
 import Layout from "../layouts/Layout.astro";
-
+import Profesores from "../components/Profesores.astro";
+import HorizontalGallery from "../components/HorizontalGallery..astro";
+import Instalaciones from "../components/Instalaciones.astro";
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+
+const sampleImages = [
+  "/galeria/1.jpg",
+  "/galeria/2.jpg",
+  "/galeria/3.jpg",
+  "/galeria/4.jpg",
+  "/galeria/5.jpg",
+  "/galeria/7.jpg",
+  "/galeria/8.jpg",
+  "/galeria/9.jpg",
+];
+
+const instalaciones = [
+  {
+    icon: "fa-futbol",
+    title: "Canchas Reglamentarias",
+    description:
+      "Contamos con canchas de césped natural y sintético de última generación, mantenidas en perfectas condiciones para entrenamientos y partidos.",
+  },
+  {
+    icon: "fa-dumbbell",
+    title: "Área de Preparación Física",
+    description:
+      "Espacio equipado para el trabajo de fuerza, velocidad y resistencia, fundamental para el rendimiento deportivo.",
+  },
+  {
+    icon: "fa-users",
+    title: "Vestuarios y Zonas Comunes",
+    description:
+      "Instalaciones cómodas y seguras para los jugadores antes y después de cada sesión.",
+  },
+  {
+    icon: "fa-video",
+    title: "Sala de Videoanálisis",
+    description:
+      "Herramientas tecnológicas para el análisis táctico y la mejora del rendimiento individual y colectivo.",
+  },
+];
+
+const galeria = [
+  {
+    src: "/instalaciones/cancha.jpg",
+    alt: "Cancha de césped natural",
+  },
+  {
+    src: "/instalaciones/gimnasio.jpg",
+    alt: "Gimnasio",
+  },
+  {
+    src: "/instalaciones/vestuario.jpg",
+    alt: "Vestuarios",
+  },
+];
 ---
 
 <Layout>
   <Header />
   <Hero />
+  <Elegir />
+  <HorizontalGallery images={sampleImages} />
+  <Profesores />
+  <Instalaciones instalaciones={instalaciones} galeria={galeria} />
 </Layout>

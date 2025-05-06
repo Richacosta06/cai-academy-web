@@ -2,12 +2,81 @@
 @import "tailwindcss";
 @plugin "@midudev/tailwind-animations";
 
+:root {
+  --cai-gold: #ffd700; /* Example Gold */
+  --cai-gray: #cbd5e1;
+  --cai-dark-bg: #1a202c;
+  --cai-card-bg: #2d3748; /* Darker card background */
+  --cai-background: #1a202c;
+}
+
+.text-cai-gold {
+  color: var(--cai-gold);
+}
+.bg-cai-gold {
+  background-color: var(--cai-gold);
+}
+.border-cai-gold {
+  border-color: var(--cai-gold);
+}
+.ring-cai-gold {
+  --tw-ring-color: var(--cai-gold);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  font-weight: 700;
+  color: #ffffff; /* White headings */
+}
+
 @layer base {
   html {
     font-family: "Signika", sans-serif;
   }
 }
 
+@layer utilities {
+  .cancha-fondo::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("/images/cancha-background.jpg");
+    background-size: cover;
+    background-position: center;
+    opacity: 0.3; /* Ajusta la opacidad aquí */
+    z-index: 0;
+    background-attachment: fixed;
+  }
+
+  .cancha-fondo > * {
+    position: relative;
+    z-index: 10;
+  }
+}
+
 @utility mask-fade-button {
   mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+}
+
+@utility mask-fade-button-top {
+  mask-image: linear-gradient(to top, black 95%, transparent 100%);
+}
+
+@layer components {
+  .info-card {
+    @apply bg-[var(--cai-card-bg)] rounded-xl p-8 border border-white/10 shadow-lg transition-all duration-300 ease-in-out;
+  }
+
+  .info-card:hover {
+    @apply -translate-y-1 shadow-2xl;
+  }
+
+  .section-title {
+    @apply text-3xl md:text-4xl font-bold text-center mb-12;
+  }
 }

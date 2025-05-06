@@ -1,36 +1,28 @@
 ---
+import "../styles/global.css";
+
 const menuLinks = [
-  {
-    text: "Programas",
-    href: "/programas",
-  },
-  {
-    text: "Instalaciones",
-    href: "/instalaciones",
-  },
-  {
-    text: "Profesores",
-    href: "/profesores",
-  },
-  {
-    text: "Contacto",
-    href: "/contacto",
-  },
+  { text: "Programas", href: "/programas" },
+  { text: "Instalaciones", href: "/instalaciones" },
+  { text: "Profesores", href: "/profesores" },
+  { text: "Contacto", href: "/contacto" },
 ];
 
-// Dividir los enlaces en dos grupos para los lados izquierdo y derecho
 const leftLinks = menuLinks.slice(0, 2);
 const rightLinks = menuLinks.slice(2);
 ---
 
-<header class="text-white fixed top-0 w-full z-50 bg-transparent">
+<header
+  class="text-white fixed top-0 w-full z-50 bg-transparent transition-all duration-300"
+  id="main-header"
+>
   <nav
     class="flex items-center px-6 py-8 text-sm font-medium justify-between max-w-6xl mx-auto relative"
   >
     <!-- Botón menú móvil -->
     <button
-      id="menuButton"
-      class="lg:hidden p-2 hover:bg-gray-100 rounded-md"
+      id="menu-button"
+      class="lg:hidden p-2 hover:bg-gray-100 rounded-md z-50"
       aria-label="Menú"
     >
       <svg
@@ -54,7 +46,7 @@ const rightLinks = menuLinks.slice(2);
         leftLinks.map((link) => (
           <a
             href={link.href}
-            class="text-xl hover:text-blue-600 transition-colors"
+            class="text-xl hover:text-yellow-500 transition-colors"
           >
             {link.text}
           </a>
@@ -68,7 +60,7 @@ const rightLinks = menuLinks.slice(2);
         rightLinks.map((link) => (
           <a
             href={link.href}
-            class="text-xl hover:text-blue-600 transition-colors"
+            class="text-xl hover:text-yellow-500 transition-colors"
           >
             {link.text}
           </a>
@@ -78,13 +70,13 @@ const rightLinks = menuLinks.slice(2);
 
     <!-- Menú móvil -->
     <div
-      id="mobileMenu"
-      class="fixed inset-0 bg-white z-50 transform translate-x-full transition-transform duration-300 ease-in-out lg:hidden"
+      id="mobile-menu"
+      class="fixed inset-0 bg-white z-50 transform translate-x-full transition-transform duration-300 ease-in-out md:hidden"
     >
       <div class="flex flex-col items-center justify-center h-full gap-8">
         <button
-          id="closeMenuButton"
-          class="absolute top-4 right-4 p-2 hover:bg-gray-100 rounded-md"
+          id="mobile-menu-button"
+          class="absolute top-4 right-4 p-2 hover:bg-gray-100 rounded-md z-50"
           aria-label="Cerrar menú"
         >
           <svg
@@ -105,7 +97,7 @@ const rightLinks = menuLinks.slice(2);
           menuLinks.map((link) => (
             <a
               href={link.href}
-              class="text-2xl hover:text-blue-600 transition-colors"
+              class="text-2xl text-black hover:text-blue-600 transition-colors"
             >
               {link.text}
             </a>
@@ -116,39 +108,41 @@ const rightLinks = menuLinks.slice(2);
   </nav>
 </header>
 
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const menuButton = document.getElementById("menuButton");
-    const closeMenuButton = document.getElementById("closeMenuButton");
-    const mobileMenu = document.getElementById("mobileMenu");
+<!-- ✅ Script cliente directamente compatible según documentación -->
+<script type="module">
+  const menuButton = document.getElementById("menu-button");
+  const closeButton = document.getElementById("mobile-menu-button");
+  const mobileMenu = document.getElementById("mobile-menu");
+  const header = document.getElementById("main-header");
 
-    if (menuButton && mobileMenu && closeMenuButton) {
-      menuButton.addEventListener("click", () => {
-        mobileMenu.classList.remove("translate-x-full");
-        document.body.style.overflow = "hidden";
-      });
-
-      closeMenuButton.addEventListener("click", () => {
-        mobileMenu.classList.add("translate-x-full");
-        document.body.style.overflow = "";
-      });
-
-      // Cerrar menú al hacer clic en un enlace
-      const mobileLinks = mobileMenu.querySelectorAll("a");
-      mobileLinks.forEach((link) => {
-        link.addEventListener("click", () => {
-          mobileMenu.classList.add("translate-x-full");
-          document.body.style.overflow = "";
-        });
-      });
-
-      // Cerrar menú al hacer clic fuera
-      mobileMenu.addEventListener("click", (e) => {
-        if (e.target === mobileMenu) {
-          mobileMenu.classList.add("translate-x-full");
-          document.body.style.overflow = "";
-        }
-      });
+  const handleScroll = () => {
+    if (!header) return;
+    if (window.scrollY > 0) {
+      header.classList.add("bg-black/50", "shadow-lg");
+      header.classList.remove("bg-transparent");
+    } else {
+      header.classList.remove("bg-black/50", "shadow-lg");
+      header.classList.add("bg-transparent");
     }
+  };
+
+  window.addEventListener("scroll", handleScroll);
+
+  menuButton?.addEventListener("click", () => {
+    mobileMenu?.classList.remove("translate-x-full");
+    mobileMenu?.classList.add("translate-x-0");
+  });
+
+  closeButton?.addEventListener("click", () => {
+    mobileMenu?.classList.remove("translate-x-0");
+    mobileMenu?.classList.add("translate-x-full");
+  });
+
+  const mobileLinks = mobileMenu?.querySelectorAll("a");
+  mobileLinks?.forEach((link) => {
+    link.addEventListener("click", () => {
+      mobileMenu?.classList.remove("translate-x-0");
+      mobileMenu?.classList.add("translate-x-full");
+    });
   });
 </script>

@@ -1,0 +1,79 @@
+---
+interface Props {
+  images: string[];
+}
+
+const { images } = Astro.props as Props;
+---
+
+<div class="relative">
+  <!-- Controles -->
+  <button
+    class="absolute left-2 top-1/2 transform -translate-y-1/2 z-10 bg-black/60 text-white p-2 rounded-full hover:bg-black/80"
+    onclick="scrollGallery(-1)"
+    aria-label="Anterior"
+  >
+    ←
+  </button>
+
+  <button
+    class="absolute right-2 top-1/2 transform -translate-y-1/2 z-10 bg-black/60 text-white p-2 rounded-full hover:bg-black/80"
+    onclick="scrollGallery(1)"
+    aria-label="Siguiente"
+  >
+    →
+  </button>
+
+  <!-- Galería -->
+  <div
+    id="gallery"
+    class="flex overflow-x-auto gap-0 p-4 scroll-smooth snap-x snap-mandatory [&::-webkit-scrollbar]:hidden"
+  >
+    {
+      images.map((src, i) => (
+        <div class="flex-shrink-0 w-[300px] h-[200px]  overflow-hidden snap-start">
+          <img
+            src={src}
+            alt={`Imagen ${i + 1}`}
+            class="w-full h-full object-cover"
+            loading="lazy"
+          />
+        </div>
+      ))
+    }
+  </div>
+  <div class="flex justify-center">
+    <a
+      href="/programas"
+      class="inline-block bg-yellow-500 hover:bg-yellow-700 text-black text-lg font-bold py-4 px-8 rounded-full transition-colors duration-300"
+    >
+      ¡Inscribete!
+    </a>
+  </div>
+</div>
+
+<script>
+  declare global {
+    interface Window {
+      scrollGallery: (dir: number) => void;
+    }
+  }
+
+  const scrollAmount = 320;
+  const gallery = document.getElementById("gallery");
+
+  window.scrollGallery = (dir: number) => {
+    gallery?.scrollBy({ left: dir * scrollAmount, behavior: "smooth" });
+  };
+
+  let autoplay = setInterval(() => {
+    gallery?.scrollBy({ left: scrollAmount, behavior: "smooth" });
+  }, 4000);
+
+  gallery?.addEventListener("mouseenter", () => clearInterval(autoplay));
+  gallery?.addEventListener("mouseleave", () => {
+    autoplay = setInterval(() => {
+      gallery?.scrollBy({ left: scrollAmount, behavior: "smooth" });
+    }, 4000);
+  });
+</script>

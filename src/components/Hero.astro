@@ -1,5 +1,5 @@
 <section
-  class="bg-[url('/images/hero-background.jpg')] h-screen w-full bg-cover bg-right md:bg-center sm:bg-left flex items-center justify-center mask-fade-button relative"
+  class="bg-[url('/images/hero-background-sin.jpg')] h-screen w-full bg-cover bg-right md:bg-center sm:bg-left flex items-center justify-center mask-fade-button relative"
 >
   <!-- Logo en la parte superior -->
   <div
@@ -17,11 +17,82 @@
     <p class="text-3xl md:text-5xl font-medium text-yellow-500 mb-8">
       Forjando Campeones
     </p>
-    <a
-      href="/programas"
-      class="inline-block bg-yellow-500 hover:bg-yellow-700 text-black font-bold py-3 px-8 rounded-lg transition-colors duration-300"
-    >
-      Ver Programas
-    </a>
+    <div class="flex justify-center gap-4">
+      <a
+        href="/programas"
+        class="inline-block bg-yellow-500 hover:bg-yellow-700 text-black text-lg font-bold py-4 px-8 rounded-full transition-colors duration-300"
+      >
+        Ver Programas
+      </a>
+      <a
+        href="/programas"
+        class="inline-block border-2 border-yellow-500 hover:bg-yellow-700 text-white text-lg font-light py-4 px-8 rounded-full transition-colors duration-300"
+      >
+        Admisión
+      </a>
+    </div>
   </div>
+
+  <!-- Pelota animada -->
+  <img
+    src="/images/pelota.png"
+    alt="Pelota de fútbol"
+    class="absolute bottom-0 right-52 w-96 ball -z-10"
+    data-astro-cid-xxxxx
+  />
 </section>
+
+<style lang="css">
+  @keyframes bounce-real {
+    /* 0→30%: caída libre */
+    0% {
+      transform: translateY(-100vh) scale(1, 1);
+    }
+    30% {
+      transform: translateY(0) scale(1.2, 0.8); /* squash al impactar */
+    }
+    /* 30→35%: rebote inicial con overshoot de stretch */
+    35% {
+      transform: translateY(0) scale(0.9, 1.1);
+    }
+    /* 35→50%: primer rebote hacia arriba */
+    50% {
+      transform: translateY(-60px) scale(1, 1);
+    }
+    /* 50→60%: impacto secundario más suave */
+    60% {
+      transform: translateY(0) scale(1.1, 0.9);
+    }
+    /* 60→65%: volver a escala normal */
+    65% {
+      transform: translateY(0) scale(1, 1);
+    }
+    /* 65→75%: segundo rebote más pequeño */
+    75% {
+      transform: translateY(-30px);
+    }
+    /* 75→85%: asentarse con un pequeño squash final */
+    85% {
+      transform: translateY(0) scale(1.05, 0.95);
+    }
+    /* 85→90%: volver a normal */
+    90% {
+      transform: translateY(0) scale(1, 1);
+    }
+    /* 90→95%: rebote mínimo final */
+    95% {
+      transform: translateY(-15px);
+    }
+    /* 95→100%: posición final */
+    100% {
+      transform: translateY(0) scale(1, 1);
+    }
+  }
+
+  .ball {
+    /* importante: origen en la base para que el squash sea creíble */
+    transform-origin: bottom center;
+    /* bézier "brincón": más reacción en impactos y menos rigidez */
+    animation: bounce-real 2s cubic-bezier(0.76, -0.3, 0.24, 1.3) forwards;
+  }
+</style>

@@ -1,0 +1,70 @@
+---
+interface Instalacion {
+  icon: string;
+  title: string;
+  description: string;
+}
+
+interface ImagenGaleria {
+  src: string;
+  alt: string;
+}
+
+const { instalaciones, galeria } = Astro.props;
+---
+
+<section
+  id="instalaciones"
+  class="relative w-full bg-cover bg-center flex items-center justify-center mask-fade-button-top cancha-fondo"
+>
+  <div class="container mx-auto px-6 py-12">
+    <h2 class="text-4xl md:text-5xl font-bold section-title">Instalaciones</h2>
+    <p class="text-center mb-12 max-w-2xl mx-auto">
+      Ofrecemos un entorno óptimo para el entrenamiento y desarrollo de nuestros
+      jugadores.
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+      {
+        instalaciones.map((item: Instalacion) => (
+          <div class="info-card">
+            <h3 class="text-2xl font-semibold mb-3 text-cai-gold">
+              <i class={`fas ${item.icon} mr-2`} /> {item.title}
+            </h3>
+            <p>{item.description}</p>
+          </div>
+        ))
+      }
+    </div>
+
+    <h3 class="text-3xl font-semibold p-6 text-center">
+      Galería de Instalaciones
+    </h3>
+
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+      {
+        galeria.map((img: ImagenGaleria) => (
+          <div class="gallery-item overflow-hidden rounded-xl shadow-lg relative hover:scale-105 transition-all duration-300">
+            <img
+              src={img.src}
+              alt={img.alt}
+              class="w-full h-full object-cover"
+              onerror="this.onerror=null; this.src='https://placehold.co/600x400/cccccc/ffffff?text=Imagen';"
+            />
+            <div class="absolute bottom-0 right-0 bg-black/70 text-white p-2 text-sm">
+              {img.alt}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+    <div class="flex justify-center mt-8">
+      <a
+        href="/programas"
+        class="inline-block bg-yellow-500 hover:bg-yellow-700 text-black text-lg font-bold py-4 px-8 rounded-full transition-colors duration-300"
+      >
+        Ver todas las instalaciones
+      </a>
+    </div>
+  </div>
+</section>
