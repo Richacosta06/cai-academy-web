@@ -1,0 +1,13 @@
+@import url("https://fonts.googleapis.com/css2?family=Signika:wght@300..700&display=swap");
+@import "tailwindcss";
+@plugin "@midudev/tailwind-animations";
+
+@layer base {
+  html {
+    font-family: "Signika", sans-serif;
+  }
+}
+
+@utility mask-fade-button {
+  mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+}

@@ -1,22 +1,56 @@
+---
+import "../styles/global.css";
+
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+---
+
 <!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Academia de Futbol CAI</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content="Academia de Futbol CAI" />
+    <meta name="author" content="Academia de Futbol CAI" />
+    <meta
+      name="keywords"
+      content="Academia de Futbol CAI, Futbol, CAI, Academia, Futbol CAI"
+    />
+
+    <meta property="og:url" content="https://academiafutbolcai.com" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Academia de Futbol CAI" />
+    <meta property="og:description" content="Academia de Futbol CAI" />
+    <meta property="og:image" content="/og.jpg" />
+    <meta property="og:locale" content="es_ES" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@AcademiaFutbolCAI" />
+    <meta name="twitter:creator" content="@AcademiaFutbolCAI" />
+    <meta name="twitter:title" content="Academia de Futbol CAI" />
+    <meta name="twitter:description" content="Academia de Futbol CAI" />
+  </head>
+  <body class="flex flex-col min-h-screen">
+    <Header />
+    <main class="flex-grow bg-gray-900">
+      <slot />
+    </main>
+    <Footer />
+  </body>
 </html>
 
 <style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
+  html,
+  body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+  }
 </style>
