@@ -70,12 +70,12 @@ const rightLinks = menuLinks.slice(2);
   id="mobile-menu"
   class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-[100] md:hidden"
 >
-  <div class="flex justify-around items-center h-16">
+  <div class="flex justify-around items-center h-16 bg-[var(--cai-card-bg)]">
     {
       menuLinks.map((link) => (
         <a
           href={link.href}
-          class="flex flex-col items-center justify-center w-full h-full text-gray-600 hover:text-blue-600 transition-colors"
+          class="flex flex-col items-center justify-center w-full h-full text-white"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
