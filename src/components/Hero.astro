@@ -1,12 +1,23 @@
+---
+import { Image } from "astro:assets";
+import logoCai from "../assets/logo-cai.png";
+---
+
 <section
   class="bg-[url('/images/hero-background-sin.jpg')] h-screen w-full bg-cover bg-right md:bg-center sm:bg-left flex items-center justify-center mask-fade-button relative"
 >
   <!-- Logo en la parte superior -->
   <div
-    class="absolute left-1/2 transform -translate-x-1/2 top-8 mask-fade-button animate-zoom-in"
+    class="absolute left-1/2 transform -translate-x-1/2 top-4 md:top-8 mask-fade-button animate-zoom-in"
   >
     <a href="/" class="block">
-      <img src="/images/logo-cai.png" alt="Logo" class="h-56 w-auto" />
+      <Image
+        src={logoCai}
+        alt="Logo"
+        class="h-40 md:h-56 w-auto object-contain"
+        width={224}
+        height={224}
+      />
     </a>
   </div>
 
