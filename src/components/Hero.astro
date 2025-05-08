@@ -34,7 +34,8 @@ const {
 ---
 
 <section
-  class={`bg-[url('${imagenFondo}')] ${soloFondo ? 'h-60 md:h-80 pb-4' : 'h-screen'} w-full bg-cover bg-right md:bg-center sm:bg-left flex items-center justify-center mask-fade-button relative`}
+  class={`${soloFondo ? 'h-60 md:h-80 pb-4' : 'h-screen'} w-full bg-cover bg-right md:bg-center sm:bg-left flex items-center justify-center mask-fade-button relative`}
+  style={`background-image: url('${imagenFondo}');`}
 >
   <!-- Logo en la parte superior -->
   <div
