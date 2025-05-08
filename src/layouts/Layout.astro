@@ -3,6 +3,7 @@ import "../styles/global.css";
 
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
+import { ClientRouter } from "astro:transitions";
 ---
 
 <!doctype html>
@@ -36,6 +37,7 @@ import Header from "../components/Header.astro";
     <meta name="twitter:creator" content="@AcademiaFutbolCAI" />
     <meta name="twitter:title" content="Academia de Futbol CAI" />
     <meta name="twitter:description" content="Academia de Futbol CAI" />
+    <ClientRouter />
   </head>
   <body class="flex flex-col min-h-screen">
     <Header />
