@@ -1,0 +1,76 @@
+---
+import InscripcionForm from "./InscripcionForm.astro";
+
+interface Programa {
+  titulo: string;
+  descripcion: string;
+  horario: string;
+  costo: string;
+  linkInscripcion: string;
+}
+
+interface Categoria {
+  nombre: string;
+  programas: Programa[];
+  orden: number;
+}
+
+interface Props {
+  categorias: Categoria[];
+  titulo: string;
+  descripcion: string;
+}
+
+const { categorias, titulo, descripcion } = Astro.props;
+
+// Ordenar categorías por el campo orden
+const categoriasOrdenadas = [...categorias].sort((a, b) => a.orden - b.orden);
+---
+
+<section id="Entrenadores" class="page-content">
+  <div class="container mx-auto px-6 py-16">
+    <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">
+      {titulo}
+      <div class="w-24 h-1 bg-cai-gold mx-auto mt-4"></div>
+    </h2>
+    <p class="text-xl text-center mb-12 max-w-2xl mx-auto">
+      {descripcion}
+    </p>
+
+    {
+      categoriasOrdenadas.map((categoria) => (
+        <div class="mb-16">
+          <h3 class="text-2xl md:text-4xl font-semibold mb-6 text-center text-cai-gold">
+            {categoria.nombre}
+          </h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {categoria.programas.map((programa) => (
+              <div class="info-card">
+                <h4 class="text-xl font-semibold mb-3">{programa.titulo}</h4>
+                <p class="text-sm mb-4">{programa.descripcion}</p>
+                <p class="text-sm mb-2">
+                  <i class="far fa-calendar-alt mr-2 text-cai-gold" />
+                  <span class="font-semibold">Horario:</span> {programa.horario}
+                </p>
+                <p class="text-sm mb-4">
+                  <i class="fas fa-dollar-sign mr-2 text-cai-gold" />
+                  <span class="font-semibold">Costo Mensual:</span>{" "}
+                  {programa.costo}
+                </p>
+                <a
+                  href={programa.linkInscripcion}
+                  class="block w-full text-center border-1 border-yellow-500 hover:bg-yellow-700 text-white text-md font-light py-2 px-4 rounded-md transition-colors duration-300"
+                >
+                  Inscribirse
+                </a>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))
+    }
+    <div id="inscripcionForm" class="flex justify-center">
+      <InscripcionForm categorias={categoriasOrdenadas} />
+    </div>
+  </div>
+</section>

@@ -1,0 +1,117 @@
+---
+import Hero from "../components/Hero.astro";
+import ListaProgramas from "../components/ListaProgramas.astro";
+import Layout from "../layouts/Layout.astro";
+
+const categorias = [
+  {
+    nombre: "Categoría Infantil (5-10 años)",
+    orden: 1,
+    programas: [
+      {
+        titulo: "Iniciación (5-7 años)",
+        descripcion: "Juegos, coordinación y primer contacto con el balón.",
+        horario: "Martes y Jueves, 4:00 PM - 5:00 PM",
+        costo: "$50.00",
+        linkInscripcion: "/programas#inscripcionForm",
+      },
+      {
+        titulo: "Competencia (11-13 años)",
+        descripcion: "Técnica individual avanzada y táctica básica.",
+        horario: "Lunes, Miércoles y Viernes, 5:00 PM - 6:30 PM",
+        costo: "$70.00",
+        linkInscripcion: "/programas#inscripcionForm",
+      },
+      {
+        titulo: "Competitivo",
+        descripcion: "Entrenamiento intensivo y preparación para torneos.",
+        horario: "Martes, Jueves y Viernes, 7:30 PM - 9:00 PM",
+        costo: "$90.00",
+        linkInscripcion: "/programas#inscripcionForm",
+      },
+    ],
+  },
+  {
+    nombre: "Categoría Juvenil (11-15 años)",
+    orden: 2,
+    programas: [
+      {
+        titulo: "Desarrollo (11-13 años)",
+        descripcion: "Técnica individual avanzada y táctica básica.",
+        horario: "Lunes, Miércoles y Viernes, 5:00 PM - 6:30 PM",
+        costo: "$70.00",
+        linkInscripcion: "/programas#inscripcionForm",
+      },
+      {
+        titulo: "Competencia (14-15 años)",
+        descripcion: "Táctica avanzada y preparación para competición.",
+        horario: "Martes, Jueves y Sábados, 5:30 PM - 7:00 PM",
+        costo: "$80.00",
+        linkInscripcion: "/programas#inscripcionForm",
+      },
+      {
+        titulo: "Competitivo",
+        descripcion: "Entrenamiento intensivo y preparación para torneos.",
+        horario: "Martes, Jueves y Viernes, 7:30 PM - 9:00 PM",
+        costo: "$90.00",
+        linkInscripcion: "/programas#inscripcionForm",
+      },
+    ],
+  },
+  {
+    nombre: "Categoría Adultos (16+ años)",
+    orden: 3,
+    programas: [
+      {
+        titulo: "Recreativo",
+        descripcion: "Fútbol recreativo y mantenimiento físico.",
+        horario: "Lunes y Miércoles, 7:00 PM - 8:30 PM",
+        costo: "$65.00",
+        linkInscripcion: "/programas#inscripcionForm",
+      },
+      {
+        titulo: "Competitivo",
+        descripcion: "Entrenamiento intensivo y preparación para torneos.",
+        horario: "Martes, Jueves y Viernes, 7:30 PM - 9:00 PM",
+        costo: "$90.00",
+        linkInscripcion: "/programas#inscripcionForm",
+      },
+      {
+        titulo: "Competitivo",
+        descripcion: "Entrenamiento intensivo y preparación para torneos.",
+        horario: "Martes, Jueves y Viernes, 7:30 PM - 9:00 PM",
+        costo: "$90.00",
+        linkInscripcion: "/programas#inscripcionForm",
+      },
+    ],
+  },
+];
+
+const titulo = "Programas";
+const descripcion =
+  "Ofrecemos programas adaptados a cada edad y nivel, enfocados en el desarrollo progresivo de habilidades.";
+
+const heroProps = {
+  imagenFondo: "/images/hero-background-sin.jpg",
+  titulo: "Academia de Futbol CAI",
+  subtitulo: "Forjando Campeones",
+  botonPrincipal: {
+    texto: "Ver Programas",
+    url: "/programas",
+  },
+  botonSecundario: {
+    texto: "Admisión",
+    url: "/",
+  },
+  soloFondo: true,
+};
+---
+
+<Layout>
+  <Hero {...heroProps} />
+  <ListaProgramas
+    categorias={categorias}
+    titulo={titulo}
+    descripcion={descripcion}
+  />
+</Layout>

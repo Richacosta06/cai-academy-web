@@ -1,0 +1,72 @@
+---
+import ContactForm from "./ContactForm.astro";
+---
+
+<section id="contacto" class="py-10">
+  <div class="container mx-auto px-6">
+    <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">
+      Contacto
+      <div class="w-24 h-1 bg-cai-gold mx-auto mt-4"></div>
+    </h2>
+    <p class="text-xl text-center mb-12 max-w-2xl mx-auto">
+      ¿Tienes preguntas o deseas inscribirte? ¡Contáctanos!
+    </p>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+      <div class="space-y-6">
+        <h3 class="text-2xl font-semibold text-white mb-4">
+          Información de Contacto
+        </h3>
+        <div class="flex items-start space-x-4">
+          <i class="fas fa-map-marker-alt text-2xl text-cai-gold mt-1"></i>
+          <div>
+            <h4 class="font-semibold text-white">Dirección</h4>
+            <p>[Dirección Completa de la Academia], Panamá</p>
+          </div>
+        </div>
+        <div class="flex items-start space-x-4">
+          <i class="fas fa-phone text-2xl text-cai-gold mt-1"></i>
+          <div>
+            <h4 class="font-semibold text-white">Teléfono</h4>
+            <p>+507 XXX-XXXX / +507 YYY-YYYY</p>
+          </div>
+        </div>
+        <div class="flex items-start space-x-4">
+          <i class="fas fa-envelope text-2xl text-cai-gold mt-1"></i>
+          <div>
+            <h4 class="font-semibold text-white">Correo Electrónico</h4>
+            <p>info@caisportcenter.com (Ejemplo)</p>
+          </div>
+        </div>
+        <div class="flex items-start space-x-4">
+          <i class="far fa-clock text-2xl text-cai-gold mt-1"></i>
+          <div>
+            <h4 class="font-semibold text-white">Horario de Atención</h4>
+            <p>Lunes a Viernes: 9:00 AM - 6:00 PM</p>
+            <p>Sábados: 9:00 AM - 1:00 PM</p>
+          </div>
+        </div>
+        <div class="pt-4">
+          <h4 class="font-semibold text-white mb-2">Síguenos</h4>
+          <div class="flex space-x-4">
+            <a
+              href="#"
+              class="text-white hover:text-cai-gold transition duration-300 text-2xl"
+              ><i class="fab fa-facebook-square"></i></a
+            >
+            <a
+              href="#"
+              class="text-white hover:text-cai-gold transition duration-300 text-2xl"
+              ><i class="fab fa-instagram-square"></i></a
+            >
+            <a
+              href="#"
+              class="text-white hover:text-cai-gold transition duration-300 text-2xl"
+              ><i class="fab fa-twitter-square"></i></a
+            >
+          </div>
+        </div>
+      </div>
+      <ContactForm />
+    </div>
+  </div>
+</section>

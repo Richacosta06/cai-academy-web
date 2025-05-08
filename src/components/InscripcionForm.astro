@@ -1,0 +1,295 @@
+---
+interface Programa {
+  titulo: string;
+  descripcion: string;
+  horario: string;
+  costo: string;
+  linkInscripcion: string;
+}
+
+interface Categoria {
+  nombre: string;
+  programas: Programa[];
+  orden: number;
+}
+
+interface Props {
+  categorias: Categoria[];
+}
+
+const { categorias } = Astro.props;
+---
+
+<div class="mt-16">
+  <h3 class="text-2xl md:text-4xl font-semibold mb-6 text-center text-cai-gold">
+    Formulario de Inscripción
+  </h3>
+  <form class="info-card p-6 md:p-8 max-w-4xl mx-auto">
+    <!-- Datos del Alumno -->
+    <div class="mb-8">
+      <h4 class="text-xl font-semibold mb-4 text-white">Datos del Alumno</h4>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label for="nombre" class="block text-sm font-medium mb-1 text-white"
+            >Nombre Completo</label
+          >
+          <input
+            type="text"
+            id="nombre"
+            name="nombre"
+            required
+            class="w-full bg-[#2d3748] border border-[#4a5568] text-[#e2e8f0] rounded-lg px-4 py-3 focus:border-cai-gold focus:ring-2 focus:ring-cai-gold/30 focus:outline-none transition-all duration-300"
+          />
+        </div>
+        <div>
+          <label
+            for="fechaNacimiento"
+            class="block text-sm font-medium mb-1 text-white"
+            >Fecha de Nacimiento</label
+          >
+          <input
+            type="date"
+            id="fechaNacimiento"
+            name="fechaNacimiento"
+            required
+            class="w-full bg-[#2d3748] border border-[#4a5568] text-[#e2e8f0] rounded-lg px-4 py-3 focus:border-cai-gold focus:ring-2 focus:ring-cai-gold/30 focus:outline-none transition-all duration-300"
+          />
+        </div>
+        <div>
+          <label
+            for="documento"
+            class="block text-sm font-medium mb-1 text-white"
+            >Documento de Identidad</label
+          >
+          <input
+            type="text"
+            id="documento"
+            name="documento"
+            required
+            class="w-full bg-[#2d3748] border border-[#4a5568] text-[#e2e8f0] rounded-lg px-4 py-3 focus:border-cai-gold focus:ring-2 focus:ring-cai-gold/30 focus:outline-none transition-all duration-300"
+          />
+        </div>
+        <div>
+          <label
+            for="telefono"
+            class="block text-sm font-medium mb-1 text-white">Teléfono</label
+          >
+          <input
+            type="tel"
+            id="telefono"
+            name="telefono"
+            required
+            class="w-full bg-[#2d3748] border border-[#4a5568] text-[#e2e8f0] rounded-lg px-4 py-3 focus:border-cai-gold focus:ring-2 focus:ring-cai-gold/30 focus:outline-none transition-all duration-300"
+          />
+        </div>
+        <div>
+          <label for="email" class="block text-sm font-medium mb-1 text-white"
+            >Correo Electrónico</label
+          >
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            class="w-full bg-[#2d3748] border border-[#4a5568] text-[#e2e8f0] rounded-lg px-4 py-3 focus:border-cai-gold focus:ring-2 focus:ring-cai-gold/30 focus:outline-none transition-all duration-300"
+          />
+        </div>
+        <div>
+          <label
+            for="direccion"
+            class="block text-sm font-medium mb-1 text-white">Dirección</label
+          >
+          <input
+            type="text"
+            id="direccion"
+            name="direccion"
+            required
+            class="w-full bg-[#2d3748] border border-[#4a5568] text-[#e2e8f0] rounded-lg px-4 py-3 focus:border-cai-gold focus:ring-2 focus:ring-cai-gold/30 focus:outline-none transition-all duration-300"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- Datos del Representante (se mostrará dinámicamente con JavaScript) -->
+    <div id="datosRepresentante" class="mb-8 hidden">
+      <h4 class="text-xl font-semibold mb-4 text-white">
+        Datos del Representante
+      </h4>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label
+            for="nombreRepresentante"
+            class="block text-sm font-medium mb-1 text-white"
+            >Nombre Completo</label
+          >
+          <input
+            type="text"
+            id="nombreRepresentante"
+            name="nombreRepresentante"
+            class="w-full bg-[#2d3748] border border-[#4a5568] text-[#e2e8f0] rounded-lg px-4 py-3 focus:border-cai-gold focus:ring-2 focus:ring-cai-gold/30 focus:outline-none transition-all duration-300"
+          />
+        </div>
+        <div>
+          <label
+            for="documentoRepresentante"
+            class="block text-sm font-medium mb-1 text-white"
+            >Documento de Identidad</label
+          >
+          <input
+            type="text"
+            id="documentoRepresentante"
+            name="documentoRepresentante"
+            class="w-full bg-[#2d3748] border border-[#4a5568] text-[#e2e8f0] rounded-lg px-4 py-3 focus:border-cai-gold focus:ring-2 focus:ring-cai-gold/30 focus:outline-none transition-all duration-300"
+          />
+        </div>
+        <div>
+          <label
+            for="telefonoRepresentante"
+            class="block text-sm font-medium mb-1 text-white">Teléfono</label
+          >
+          <input
+            type="tel"
+            id="telefonoRepresentante"
+            name="telefonoRepresentante"
+            class="w-full bg-[#2d3748] border border-[#4a5568] text-[#e2e8f0] rounded-lg px-4 py-3 focus:border-cai-gold focus:ring-2 focus:ring-cai-gold/30 focus:outline-none transition-all duration-300"
+          />
+        </div>
+        <div>
+          <label
+            for="emailRepresentante"
+            class="block text-sm font-medium mb-1 text-white"
+            >Correo Electrónico</label
+          >
+          <input
+            type="email"
+            id="emailRepresentante"
+            name="emailRepresentante"
+            class="w-full bg-[#2d3748] border border-[#4a5568] text-[#e2e8f0] rounded-lg px-4 py-3 focus:border-cai-gold focus:ring-2 focus:ring-cai-gold/30 focus:outline-none transition-all duration-300"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- Selección de Programa -->
+    <div class="mb-8">
+      <h4 class="text-xl font-semibold mb-4 text-white">
+        Selección de Programa
+      </h4>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label
+            for="categoria"
+            class="block text-sm font-medium mb-1 text-white">Categoría</label
+          >
+          <select
+            id="categoria"
+            name="categoria"
+            required
+            class="w-full bg-[#2d3748] border border-[#4a5568] text-[#e2e8f0] rounded-lg px-4 py-3 focus:border-cai-gold focus:ring-2 focus:ring-cai-gold/30 focus:outline-none transition-all duration-300"
+          >
+            <option value="">Seleccione una categoría</option>
+            {
+              categorias.map((categoria) => (
+                <option value={categoria.nombre}>{categoria.nombre}</option>
+              ))
+            }
+          </select>
+        </div>
+        <div>
+          <label
+            for="programa"
+            class="block text-sm font-medium mb-1 text-white">Programa</label
+          >
+          <select
+            id="programa"
+            name="programa"
+            required
+            class="w-full bg-[#2d3748] border border-[#4a5568] text-[#e2e8f0] rounded-lg px-4 py-3 focus:border-cai-gold focus:ring-2 focus:ring-cai-gold/30 focus:outline-none transition-all duration-300"
+          >
+            <option value="">Seleccione un programa</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Botón de Envío -->
+    <div class="text-center">
+      <button
+        type="submit"
+        class="bg-cai-gold text-cai-dark-bg font-semibold px-8 py-3 rounded-full text-lg shadow-[0_4px_10px_rgba(255,215,0,0.2)] hover:bg-[#e6c300] hover:-translate-y-0.5 hover:shadow-[0_6px_15px_rgba(255,215,0,0.3)] transition-all duration-300"
+      >
+        <i class="fas fa-paper-plane mr-2"></i>Enviar Inscripción
+      </button>
+    </div>
+  </form>
+</div>
+
+<script define:vars={{ categorias }}>
+  // Función para calcular la edad
+  function calcularEdad(fechaNacimiento) {
+    const hoy = new Date();
+    const fechaNac = new Date(fechaNacimiento);
+    let edad = hoy.getFullYear() - fechaNac.getFullYear();
+    const mes = hoy.getMonth() - fechaNac.getMonth();
+    if (mes < 0 || (mes === 0 && hoy.getDate() < fechaNac.getDate())) {
+      edad--;
+    }
+    return edad;
+  }
+
+  // Función para mostrar/ocultar datos del representante
+  function toggleDatosRepresentante(edad) {
+    const datosRepresentante = document.getElementById("datosRepresentante");
+    if (!datosRepresentante) return;
+
+    const inputsRepresentante = datosRepresentante.querySelectorAll("input");
+    if (edad < 18) {
+      datosRepresentante.classList.remove("hidden");
+      inputsRepresentante.forEach((input) => (input.required = true));
+    } else {
+      datosRepresentante.classList.add("hidden");
+      inputsRepresentante.forEach((input) => (input.required = false));
+    }
+  }
+
+  // Evento para calcular edad y mostrar/ocultar datos del representante
+  const fechaNacimientoInput = document.getElementById("fechaNacimiento");
+  if (fechaNacimientoInput) {
+    fechaNacimientoInput.addEventListener("change", (e) => {
+      const target = e.target;
+      const edad = calcularEdad(target.value);
+      toggleDatosRepresentante(edad);
+    });
+  }
+
+  // Evento para actualizar programas según categoría seleccionada
+  const categoriaSelect = document.getElementById("categoria");
+  if (categoriaSelect) {
+    categoriaSelect.addEventListener("change", (e) => {
+      const target = e.target;
+      const categoriaSeleccionada = target.value;
+      const selectPrograma = document.getElementById("programa");
+      if (!selectPrograma) return;
+
+      selectPrograma.innerHTML =
+        '<option value="">Seleccione un programa</option>';
+
+      if (categoriaSeleccionada) {
+        const categoria = categorias.find(
+          (c) => c.nombre === categoriaSeleccionada
+        );
+        if (categoria) {
+          categoria.programas.forEach((programa) => {
+            const option = document.createElement("option");
+            option.value = programa.titulo;
+            option.textContent = programa.titulo;
+            selectPrograma.appendChild(option);
+          });
+        }
+      }
+    });
+  }
+
+  // Inicializar categorías en el objeto window para acceso global
+  window.categorias = categorias;
+</script>
