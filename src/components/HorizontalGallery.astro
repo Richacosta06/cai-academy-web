@@ -1,4 +1,6 @@
 ---
+import { Image } from "astro:assets";
+
 interface Props {
   images: string[];
 }
@@ -31,9 +33,14 @@ const { images } = Astro.props as Props;
   >
     {
       images.map((src, i) => (
-        <div class="flex-shrink-0 w-[300px] h-[200px]  overflow-hidden snap-start">
-          <img
+        <div
+          class="flex-shrink-0 w-screen sm:w-[400px] aspect-[3/2] overflow-hidden snap-start cursor-pointer"
+          onclick={`openLightbox(${i})`}
+        >
+          <Image
             src={src}
+            width={600}
+            height={400}
             alt={`Imagen ${i + 1}`}
             class="w-full h-full object-cover"
             loading="lazy"
@@ -50,21 +57,99 @@ const { images } = Astro.props as Props;
       ¡Inscribete!
     </a>
   </div>
+
+  <!-- Lightbox -->
+  <div
+    id="lightbox"
+    class="fixed inset-0 bg-black/90 z-50 hidden items-center justify-center"
+  >
+    <button
+      onclick="closeLightbox()"
+      class="absolute top-4 right-4 text-white text-4xl hover:text-gray-300"
+      aria-label="Cerrar"
+    >
+      ×
+    </button>
+    <button
+      onclick="changeLightboxImage(-1)"
+      class="absolute left-4 text-white text-4xl hover:text-gray-300"
+      aria-label="Anterior"
+    >
+      ←
+    </button>
+    <button
+      onclick="changeLightboxImage(1)"
+      class="absolute right-4 text-white text-4xl hover:text-gray-300"
+      aria-label="Siguiente"
+    >
+      →
+    </button>
+    <img
+      id="lightbox-image"
+      src=""
+      alt=""
+      class="max-h-[90vh] max-w-[90vw] object-contain"
+    />
+  </div>
 </div>
 
 <script>
   declare global {
     interface Window {
       scrollGallery: (dir: number) => void;
+      openLightbox: (index: number) => void;
+      closeLightbox: () => void;
+      changeLightboxImage: (dir: number) => void;
     }
   }
 
   const scrollAmount = 320;
   const gallery = document.getElementById("gallery");
+  const lightbox = document.getElementById("lightbox");
+  const lightboxImage = document.getElementById(
+    "lightbox-image"
+  ) as HTMLImageElement;
+  const images = Array.from(document.querySelectorAll("#gallery img")).map(
+    (img) => (img as HTMLImageElement).src
+  );
+  let currentImageIndex = 0;
 
   window.scrollGallery = (dir: number) => {
     gallery?.scrollBy({ left: dir * scrollAmount, behavior: "smooth" });
   };
+
+  window.openLightbox = (index: number) => {
+    if (lightbox && lightboxImage) {
+      currentImageIndex = index;
+      lightboxImage.src = images[index];
+      lightbox.classList.remove("hidden");
+      lightbox.classList.add("flex");
+      document.body.style.overflow = "hidden";
+    }
+  };
+
+  window.closeLightbox = () => {
+    if (lightbox) {
+      lightbox.classList.add("hidden");
+      lightbox.classList.remove("flex");
+      document.body.style.overflow = "";
+    }
+  };
+
+  window.changeLightboxImage = (dir: number) => {
+    currentImageIndex =
+      (currentImageIndex + dir + images.length) % images.length;
+    if (lightboxImage) {
+      lightboxImage.src = images[currentImageIndex];
+    }
+  };
+
+  // Cerrar lightbox con la tecla Escape
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      window.closeLightbox();
+    }
+  });
 
   let autoplay = setInterval(() => {
     gallery?.scrollBy({ left: scrollAmount, behavior: "smooth" });
