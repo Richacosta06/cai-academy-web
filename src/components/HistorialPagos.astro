@@ -1,0 +1,130 @@
+---
+// src/components/HistorialPagos.astro
+export interface Pago {
+  id: string | number;
+  fecha: string; // Formato "dd/mm/aaaa" o "mm/dd/aaaa" según preferencia
+  concepto: string;
+  monto: number;
+  estado: "Pagado" | "Pendiente" | "Vencido"; // Podrías añadir más estados
+  comprobanteUrl?: string; // URL para ver el comprobante
+}
+
+interface Props {
+  pagos?: Pago[];
+  titulo?: string;
+}
+
+const {
+  pagos = [
+    // Datos de ejemplo si no se proporcionan pagos
+    {
+      id: 1,
+      fecha: "01/05/2025",
+      concepto: "Mensualidad Mayo",
+      monto: 75.0,
+      estado: "Pagado",
+      comprobanteUrl: "#",
+    },
+    {
+      id: 2,
+      fecha: "01/04/2025",
+      concepto: "Mensualidad Abril",
+      monto: 75.0,
+      estado: "Pagado",
+      comprobanteUrl: "#",
+    },
+    {
+      id: 3,
+      fecha: "01/06/2025",
+      concepto: "Mensualidad Junio",
+      monto: 75.0,
+      estado: "Pendiente",
+    },
+    {
+      id: 4,
+      fecha: "01/03/2025",
+      concepto: "Matrícula Anual",
+      monto: 150.0,
+      estado: "Pagado",
+      comprobanteUrl: "#",
+    },
+    {
+      id: 5,
+      fecha: "01/07/2025",
+      concepto: "Mensualidad Julio",
+      monto: 75.0,
+      estado: "Pendiente",
+    },
+  ],
+  titulo = "Historial de Pagos",
+} = Astro.props;
+
+const formatCurrency = (value: number) => {
+  return `$${value.toFixed(2)}`;
+};
+---
+
+<div
+  class="bg-[#2d3748] p-6 md:p-8 rounded-lg shadow-xl text-white w-full mx-auto"
+>
+  <h2 class="text-2xl font-semibold text-cai-gold mb-6">{titulo}</h2>
+  <div class="overflow-x-auto">
+    <table class="w-full min-w-[600px] text-left">
+      <thead>
+        <tr class="border-b border-gray-600">
+          <th class="py-3 pr-3 font-semibold">Fecha</th>
+          <th class="py-3 px-3 font-semibold">Concepto</th>
+          <th class="py-3 px-3 font-semibold">Monto</th>
+          <th class="py-3 px-3 font-semibold">Estado</th>
+          <th class="py-3 pl-3 font-semibold">Comprobante</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          pagos.length > 0 ? (
+            pagos.map((pago) => (
+              <tr class="border-b border-gray-700 last:border-b-0 hover:bg-gray-700/30 transition-colors duration-150">
+                <td class="py-4 pr-3">{pago.fecha}</td>
+                <td class="py-4 px-3">{pago.concepto}</td>
+                <td class="py-4 px-3">{formatCurrency(pago.monto)}</td>
+                <td class="py-4 px-3">
+                  <span
+                    class:list={[
+                      "px-3 py-1 text-xs font-semibold rounded-full",
+                      pago.estado === "Pagado" && "bg-green-500 text-green-900",
+                      pago.estado === "Pendiente" &&
+                        "bg-yellow-500 text-yellow-900",
+                      pago.estado === "Vencido" && "bg-red-500 text-red-900",
+                    ]}
+                  >
+                    {pago.estado}
+                  </span>
+                </td>
+                <td class="py-4 pl-3">
+                  {pago.comprobanteUrl ? (
+                    <a
+                      href={pago.comprobanteUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="text-cai-gold hover:underline"
+                    >
+                      Ver
+                    </a>
+                  ) : (
+                    <span>-</span>
+                  )}
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colspan="5" class="py-8 text-center text-gray-400">
+                No hay pagos registrados.
+              </td>
+            </tr>
+          )
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

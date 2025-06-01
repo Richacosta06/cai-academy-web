@@ -1,0 +1,98 @@
+---
+import type { Alumno } from "../types/alumno";
+
+interface Props {
+  alumno: Alumno;
+}
+
+const { alumno } = Astro.props;
+
+// Formatear fecha
+const fechaNacimiento = new Date(alumno.fecha_nacimiento).toLocaleDateString(
+  "es-PA",
+  {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  }
+);
+---
+
+<h1 class="text-4xl font-extrabold text-white mb-6">Perfil del Alumno</h1>
+<div
+  class="bg-[#232b39] border border-[#3a4252] rounded-lg p-6 md:p-8 mb-8 shadow-sm w-full mx-auto"
+>
+  <div class="mb-4 flex items-center gap-3">
+    <span class="text-xl font-bold text-cai-gold">Datos del Alumno</span>
+    <div class="h-1 w-16 bg-cai-gold rounded-full mt-2"></div>
+  </div>
+  <hr class="border-[#3a4252] mb-6" />
+  <div class="flex flex-col md:flex-row gap-8 items-center md:items-start">
+    <div
+      class="flex-shrink-0 flex flex-col items-center w-full md:w-auto mb-4 md:mb-0"
+    >
+      <img
+        src={alumno.foto_url}
+        alt={`Foto de ${alumno.nombre_completo}`}
+        class="w-36 h-36 md:w-44 md:h-44 rounded-full border-4 border-cai-gold object-cover shadow-md mb-4"
+      />
+      <div class="flex gap-2 mb-2">
+        <span
+          class={`px-3 py-1 rounded-full text-sm font-medium ${
+            alumno.estado === "activo"
+              ? "bg-green-500/20 text-green-400"
+              : "bg-red-500/20 text-red-400"
+          }`}
+        >
+          {alumno.estado === "activo" ? "Activo" : "Inactivo"}
+        </span>
+        <span
+          class="px-3 py-1 rounded-full text-sm font-medium bg-yellow-500/20 text-yellow-400"
+        >
+          {alumno.becado === "sí" ? "Becado" : "No Becado"}
+        </span>
+      </div>
+    </div>
+    <div class="flex-1 w-full">
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 gap-y-2 gap-x-8 text-white text-base"
+      >
+        <div class="flex flex-col sm:flex-row sm:items-center mb-2">
+          <span class="font-medium text-gray-300 w-32 sm:w-40">Nombre:</span>
+          <span>{alumno.nombre_completo}</span>
+        </div>
+        <div class="flex flex-col sm:flex-row sm:items-center mb-2">
+          <span class="font-medium text-gray-300 w-32 sm:w-40">Edad:</span>
+          <span>{alumno.edad} años</span>
+        </div>
+        <div class="flex flex-col sm:flex-row sm:items-center mb-2">
+          <span class="font-medium text-gray-300 w-32 sm:w-40">Fecha Nac.:</span
+          >
+          <span>{fechaNacimiento}</span>
+        </div>
+        <div class="flex flex-col sm:flex-row sm:items-center mb-2">
+          <span class="font-medium text-gray-300 w-32 sm:w-40">Cédula:</span>
+          <span>8-123-456</span>
+        </div>
+        <div class="flex flex-col sm:flex-row sm:items-center mb-2">
+          <span class="font-medium text-gray-300 w-32 sm:w-40">Categoría:</span>
+          <span>{alumno.categoria}</span>
+        </div>
+        <div class="flex flex-col sm:flex-row sm:items-center mb-2">
+          <span class="font-medium text-gray-300 w-32 sm:w-40">Dirección:</span>
+          <span>{alumno.direccion}</span>
+        </div>
+        <div class="flex flex-col sm:flex-row sm:items-center mb-2">
+          <span class="font-medium text-gray-300 w-32 sm:w-40">Teléfono:</span>
+          <span>{alumno.telefono}</span>
+        </div>
+        <div
+          class="flex flex-col sm:flex-row sm:items-center mb-2 md:col-span-2"
+        >
+          <span class="font-medium text-gray-300 w-32 sm:w-40">Email:</span>
+          <span>{alumno.correo}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

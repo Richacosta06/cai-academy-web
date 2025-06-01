@@ -1,0 +1,45 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { getSession } from "auth-astro/server";
+import PerfilAlumno from "../components/PerfilAlumno.astro";
+import type { Alumno } from "../types/alumno";
+import RegistrarPagoForm from "../components/RegistrarPagoForm.astro";
+import HistorialPagos from "../components/HistorialPagos.astro";
+
+const session = await getSession(Astro.request);
+
+// if (!session) {
+//   return Astro.redirect("/login", 302);
+// }
+
+// Datos del alumno (esto vendría de tu API/backend)
+const alumno: Alumno = {
+  nombre_completo: "Luciano Acosta",
+  edad: "3",
+  fecha_nacimiento: "2021-10-14",
+  direccion: "Calle 123, Panamá",
+  telefono: "6123-4567",
+  correo: "john@example.com",
+  categoria: "Preescolar",
+  estado: "activo",
+  becado: "sí",
+  foto_url: "https://i.pravatar.cc/300?img=12",
+};
+---
+
+<Layout title="Dashboard | CAI Academia">
+  <section class="page-content w-full">
+    <div class="container mx-auto px-6 py-16 space-y-12">
+      <h1 class="text-3xl md:text-4xl font-bold text-center mb-12">
+        Mi Perfil
+        <div class="w-24 h-1 bg-cai-gold mx-auto mt-4"></div>
+      </h1>
+
+      <PerfilAlumno alumno={alumno} />
+
+      <HistorialPagos />
+
+      <RegistrarPagoForm />
+    </div>
+  </section>
+</Layout>

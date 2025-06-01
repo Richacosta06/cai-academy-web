@@ -1,0 +1,175 @@
+---
+export const prerender = false;
+
+interface Props {
+  titulo?: string;
+}
+const { titulo = "Iniciar Sesión" } = Astro.props;
+const error = Astro.url.searchParams.get("error");
+---
+
+<div>
+  <h3 class="text-2xl font-semibold text-white mb-4">
+    {titulo}
+  </h3>
+
+  <div
+    id="error-message"
+    class={`mb-4 text-red-500 text-sm text-center ${error ? "" : "hidden"}`}
+  >
+    {
+      error === "CredentialsSignin"
+        ? "Correo o contraseña incorrectos."
+        : "Ocurrió un error al iniciar sesión."
+    }
+  </div>
+
+  <form id="login-form" class="info-card p-6 md:p-8">
+    <div class="mb-4">
+      <label
+        for="login-email"
+        class="block text-sm font-medium mb-1 text-white"
+      >
+        Correo Electrónico
+      </label>
+      <input
+        type="email"
+        id="login-email"
+        name="identifier"
+        autocomplete="username"
+        required
+        class="w-full bg-[#2d3748] border border-[#4a5568] text-[#e2e8f0] rounded-lg px-4 py-3 focus:border-cai-gold focus:ring-2 focus:ring-cai-gold/30 focus:outline-none transition-all duration-300"
+        placeholder="tu@email.com"
+      />
+    </div>
+
+    <div class="mb-4">
+      <label
+        for="login-password"
+        class="block text-sm font-medium mb-1 text-white"
+      >
+        Contraseña
+      </label>
+      <input
+        type="password"
+        id="login-password"
+        name="password"
+        required
+        autocomplete="current-password"
+        class="w-full bg-[#2d3748] border border-[#4a5568] text-[#e2e8f0] rounded-lg px-4 py-3 focus:border-cai-gold focus:ring-2 focus:ring-cai-gold/30 focus:outline-none transition-all duration-300"
+        placeholder="••••••••"
+      />
+    </div>
+
+    <div class="text-center">
+      <button
+        id="login-button"
+        type="submit"
+        class="bg-cai-gold text-cai-dark-bg font-semibold px-8 py-3 rounded-full text-lg shadow-[0_4px_10px_rgba(255,215,0,0.2)] hover:bg-[#e6c300] hover:-translate-y-0.5 hover:shadow-[0_6px_15px_rgba(255,215,0,0.3)] transition-all duration-300 flex items-center justify-center gap-2"
+      >
+        <i class="fas fa-sign-in-alt"></i>
+        <span id="button-text">Ingresar</span>
+        <span id="loading-spinner" class="animate-spin hidden">⏳</span>
+      </button>
+    </div>
+  </form>
+</div>
+
+<script type="module">
+  import { signIn } from "auth-astro/client";
+
+  console.log("Script de LoginForm.astro cargado.");
+
+  const form = document.getElementById("login-form");
+  const errorMessageDiv = document.getElementById("error-message");
+
+  if (!form) {
+    console.error(
+      "Error crítico: El formulario con id 'login-form' no fue encontrado en el DOM."
+    );
+  } else {
+    console.log("Formulario 'login-form' encontrado:", form);
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      console.log("Evento submit del formulario capturado.");
+
+      if (!errorMessageDiv) {
+        console.error(
+          "Error crítico: El div de mensaje de error 'error-message' no fue encontrado."
+        );
+      } else {
+        errorMessageDiv.classList.add("hidden");
+        errorMessageDiv.textContent = "";
+      }
+
+      const emailInput = document.getElementById("login-email");
+      const passwordInput = document.getElementById("login-password");
+
+      if (!emailInput || !passwordInput) {
+        console.error(
+          "Error: No se encontraron los campos de email o contraseña por su ID."
+        );
+        if (errorMessageDiv) {
+          errorMessageDiv.textContent =
+            "Error interno: no se pudieron encontrar los campos del formulario.";
+          errorMessageDiv.classList.remove("hidden");
+        }
+        return;
+      }
+
+      const identifier = emailInput.value;
+      const password = passwordInput.value;
+
+      console.log(
+        "Intentando iniciar sesión con identifier:",
+        identifier ? "(presente)" : "(vacío)",
+        "y password:",
+        password ? "(presente)" : "(vacío)"
+      );
+
+      try {
+        const result = await signIn("credentials", {
+          identifier,
+          password,
+          redirect: false,
+        });
+
+        console.log("Resultado de signIn:", result);
+
+        if (result?.error) {
+          console.error(
+            "Error de inicio de sesión devuelto por signIn:",
+            result.error
+          );
+          let displayError =
+            "Correo o contraseña incorrectos, o error en el servidor.";
+          if (errorMessageDiv) {
+            errorMessageDiv.textContent = displayError;
+            errorMessageDiv.classList.remove("hidden");
+          }
+        } else if (result?.ok) {
+          console.log("Inicio de sesión exitoso según signIn. Redirigiendo...");
+          window.location.href = result.url || "/dashboard";
+        } else {
+          console.warn("Respuesta inesperada o no exitosa de signIn:", result);
+          if (errorMessageDiv) {
+            errorMessageDiv.textContent =
+              "Respuesta inesperada del servidor de autenticación.";
+            errorMessageDiv.classList.remove("hidden");
+          }
+        }
+      } catch (err) {
+        console.error(
+          "Excepción capturada durante la llamada a signIn o su procesamiento:",
+          err
+        );
+        if (errorMessageDiv) {
+          errorMessageDiv.textContent =
+            "Ocurrió una excepción al intentar iniciar sesión. Revisa la consola del navegador.";
+          errorMessageDiv.classList.remove("hidden");
+        }
+      }
+    });
+    console.log("Event listener para 'submit' añadido al formulario.");
+  }
+</script>
